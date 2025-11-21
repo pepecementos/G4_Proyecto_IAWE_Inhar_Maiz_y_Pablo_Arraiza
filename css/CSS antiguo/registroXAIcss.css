@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgba(51, 51, 51, 1);
+  color: #000000;
+  margin: 0;
+  padding-top: 20px; 
+}
+
+.PagRegistro {
+  max-width: 800px; 
+  margin: 30px auto; 
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Registrarse form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  width: 100%;
+  max-width: 360px; 
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ffb6f5;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.iconos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px; 
+  max-width: 360px; 
+  margin-bottom: 20px;
+}
+
+.iconos img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  filter: grayscale(100%);
+}
+
+.iconos input[type="radio"] {
+  display: none;
+}
+
+.iconos label {
+  cursor: pointer;
+}
+
+.iconos input[type="radio"]:checked + img {
+  transform: scale(1.1);
+  filter: none;
+}
+
+button {
+  width: 100%;
+  max-width: 360px; 
+  padding: 10px;
+  background-color: #008CBA;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #007B9E;
+}

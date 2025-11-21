@@ -1,0 +1,96 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(51, 51, 51, 1); 
+    margin: 0;
+    padding: 0;
+    color: #f4f4f4;/
+  }
+  
+  .cuerpo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .cuerpo img {
+    border-radius: 10px; 
+    margin: 20px 0;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); 
+  }
+  
+  .sinopsis {
+    background-color: #ffffff;
+    color: #333;
+    padding: 20px;
+    margin: 20px;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: justify;
+  }
+  
+  .listacapitulos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 20px 0;
+  }
+  
+  .listacapitulos div {
+    background-color: #ffffff;
+    color: #333;
+    padding: 15px;
+    margin: 10px 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .listacapitulos img {
+    border-radius: 10px;
+    margin-right: 15px; 
+  }
+  
+  .botonvisto {
+    margin-left: auto; 
+  }
+  
+  .botonvisto input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .botonvisto label {
+    color: #333;
+    font-weight: bold;
+    cursor: pointer; 
+  }
+  
+
+  .botonvisto input[type="radio"]:checked + label {
+    color: #008CBA;
+  }
+  
+
+  input[type="radio"], button {
+    transition: all 0.3s ease;
+  }
+  
+  button {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  button:hover {
+    background-color: #005f73; 
+  }
+  
+  

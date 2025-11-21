@@ -1,0 +1,87 @@
+
+
+#contenido {
+    margin: 0;
+    padding: 20px;
+    width: 100%;
+    background: rgba(51, 51, 51, 1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  #anime h2, #manga h2 {
+    font-size: 40px;
+    color: #ffffff;
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .galeria-anime {
+    display: flex;
+    flex-wrap: nowrap; 
+    gap: 15px;
+    justify-content: start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+  }
+  
+  .galeria-anime img {
+    flex: 29; 
+    width: 350px; 
+    height: 500px;
+    border-radius: 5px;
+  }
+  
+
+
+  .galeria-manga {
+    display: flex;
+    flex-wrap: nowrap; 
+    gap: 5px;
+    justify-content: start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+  }
+  
+  .galeria-manga img {
+    flex: 29; 
+    width: 350px; 
+    height: 500px;
+    border-radius: 5px;
+  }
+
+
+
+
+  .ver-todo {
+    display: block;
+    width: auto;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #ff80e3;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px auto;
+  }
+  
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+  }
+  
+
+  p {
+    color: white;
+  }
+
+  .galeria-anime img:hover {
+    opacity: 1;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
