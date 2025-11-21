@@ -7,6 +7,15 @@
         <title>Bucles</title>
     </head>
     <body>
-       <div id="contenido">
-        <div id="cabecera"><h2>AnimeXAI</h2></div>
+        <div id="contenido">
+        <div id="cabecera">
+            <h2>AnimeXAI</h2>
+            <div id="menuNavegación">
+                <a href="">INICIO</a>
+                <a href="animes.php">ANIMES</a>
+                <a href="mangas.php">MANGAS</a>
+                <a href="tienda.php">TIENDA</a>
+                <a href="areaPersonal.php">AREA PERSONAL</a>
+            </div>
+        </div>
         <div id="principal">
