@@ -1,18 +1,20 @@
 <?php
+    //LOGIN
+    //Procede aqui:
 
-    include "/includes/cabeceraproy.php";
+    //REGISTRO
+    //Procede aqui:
 
-    echo "<h1>¡Bienvenido a AnimeXAI!</h1>
-            <form action='gestion_logins.php' method='post'>
-                <label for='usuario'>Usuario</label>
-                <input type='text' name='username'>
-                <label for='passwd'>Contraseña</label>    
-                <input type='password' name='passwd'>
-                <input type='submit'>
-                <p>¿No tienes cuenta? ¡Crea una <a href='registro.php'>aquí!<a></p>
-                <br><a href='contra.php'>He olvidado mi contraseña<a>
-            </form>";
-
-    include "/includes/pieproy.php";
-
+    //Barra de navegacion
+    if ($_GET["pagina"] == "inicio"){
+        include "inicio.php";
+    } elseif ($_GET["pagina"] == "animes"){
+        include "animes.php";
+    } elseif ($_GET["pagina"] == "mangas"){
+        include "mangas.php";
+    } elseif ($_GET["pagina"] == "tienda"){
+        include "tienda.php";
+    } elseif ($_GET["pagina"] == "areapersonal"){
+        include "areapersonal.php";
+    }
 ?>
