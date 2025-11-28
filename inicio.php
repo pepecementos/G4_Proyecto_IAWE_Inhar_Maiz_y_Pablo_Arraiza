@@ -1,7 +1,7 @@
 <?php include ("includes/cabecera.php")?>
 
 <?php 
-    echo "Tienda";
+    echo "Inicio";
 ?>
 
 <?php include ("includes/pie.php")?>

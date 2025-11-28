@@ -10,12 +10,12 @@
         <div id="contenido">
         <div id="cabecera">
             <h2>AnimeXAI</h2>
-            <div id="menuNavegación">
-                <a href="">INICIO</a>
-                <a href="animes.php">ANIMES</a>
-                <a href="mangas.php">MANGAS</a>
-                <a href="tienda.php">TIENDA</a>
-                <a href="areaPersonal.php">AREA PERSONAL</a>
-            </div>
+            <nav id="menuNavegación">
+                <a href="index.php?pagina=inicio">INICIO</a>
+                <a href="index.php?pagina=animes">ANIMES</a>
+                <a href="index.php?pagina=mangas">MANGAS</a>
+                <a href="index.php?pagina=tienda">TIENDA</a>
+                <a href="index.php?pagina=areapersonal">AREA PERSONAL</a>
+            </nav>
         </div>
         <div id="principal">

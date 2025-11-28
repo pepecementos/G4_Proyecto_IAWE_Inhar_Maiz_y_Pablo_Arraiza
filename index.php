@@ -1,11 +1,20 @@
 <?php
+    //LOGIN
+    //Procede aqui:
 
-    include "/includes/cabeceraproy.php"
+    //REGISTRO
+    //Procede aqui:
 
-?>
-
-<?php
-
-    include "/includes/pieproy.php"
-
+    //Barra de navegacion
+    if ($_GET["pagina"] == "inicio"){
+        include "inicio.php";
+    } elseif ($_GET["pagina"] == "animes"){
+        include "animes.php";
+    } elseif ($_GET["pagina"] == "mangas"){
+        include "mangas.php";
+    } elseif ($_GET["pagina"] == "tienda"){
+        include "tienda.php";
+    } elseif ($_GET["pagina"] == "areapersonal"){
+        include "areapersonal.php";
+    }
 ?>

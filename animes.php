@@ -1,5 +1,7 @@
-<?php include ("/includes/cabeceraproy.php")?>
+<?php include ("includes/cabecera.php")?>
 
+<?php 
+    echo "Animes";
+?>
 
-
-<?php include ("/includes/pieproy.php")?>
+<?php include ("includes/pie.php")?>
