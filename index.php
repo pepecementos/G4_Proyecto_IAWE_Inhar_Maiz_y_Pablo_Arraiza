@@ -1,35 +1,36 @@
 <?php
-// index.php (raíz)
+    include "includes/cabecera.php";
+    
+    // Si hace login, redirigir con el usuario en la URL
+    if (isset($_POST["cuenta"])) {
+        header("Location: index.php?usuario=" . urlencode($_POST["username"]));
+        exit();
+    }
+    
+    // Variable para saber si el usuario está logueado (mirar GET)
+    $usuarioLogueado = isset($_GET["usuario"]) ? true : false;
+    $nombreUsuario = $_GET["usuario"] ?? "";
+    
+    // Si no está logueado, mostrar el login
+    if (!$usuarioLogueado) {
+        include "vistas/login.php";
+    }
+    
+    //Barra de navegacion
+    $pagina = $_GET["pagina"] ?? "inicio";
+    
+    if ($pagina == "inicio"){
+        include "vistas/inicio.php";
+    } elseif ($pagina == "animes"){
+        include "vistas/animes.php";
+    } elseif ($pagina == "mangas"){
+        include "vistas/mangas.php";
+    } elseif ($pagina == "tienda"){
+        include "vistas/tienda.php";
+    } elseif ($pagina == "areapersonal"){
+        include "vistas/areapersonal.php";
+    }
 
-// Página solicitada
-$page = $_GET["page"] ?? "inicio";
+    include "includes/pie.php";
 
-// Lista blanca de vistas
-$map = [
-  "inicio" => "vistas/inicio.php",
-  "animes" => "vistas/animes.php",
-  "mangas" => "vistas/mangas.php",
-  "tienda" => "vistas/tienda.php",
-  "areaPersonal" => "vistas/areaPersonal.php",
-];
-
-// Fallback si no existe
-if (!array_key_exists($page, $map)) {
-  $page = "inicio";
-}
-
-// Variables para cabecera
-$tituloPagina = match($page) {
-  "inicio" => "AniManga · Inicio",
-  "animes" => "AniManga · Animes",
-  "mangas" => "AniManga · Mangas",
-  "tienda" => "AniManga · Tienda",
-  "areaPersonal" => "AniManga · Área personal",
-  default => "AniManga",
-};
-
-$paginaActiva = $page;
-
-require __DIR__ . "/includes/cabecera.php";
-require __DIR__ . "/" . $map[$page];
-require __DIR__ . "/includes/pie.php";
+?>
