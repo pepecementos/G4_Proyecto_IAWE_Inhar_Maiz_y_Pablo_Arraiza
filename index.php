@@ -36,7 +36,11 @@
     } elseif ($pagina == "registro") {
         include "vistas/registro.php";
     } else {
-        mostrar_error_404();
+        // Página no permitida: mostrar 404 sin usar función central
+        http_response_code(404);
+        $errorMessage = 'La página que buscas no existe.';
+        include "vistas/error404.php";
+        exit();
     }
 
     include "includes/pie.php";

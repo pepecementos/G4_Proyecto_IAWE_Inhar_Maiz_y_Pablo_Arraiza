@@ -14,11 +14,4 @@ function redirigir($url) {
 // 3. Función para comprobar si el usuario está autenticado (por GET o POST)
 function usuario_autenticado() {
     return isset($_GET['usuario']) && $_GET['usuario'] !== '';
-}
-// 4. Función para mostrar una página de error 404
-function mostrar_error_404($mensaje = 'La página que buscas no existe.') {
-    http_response_code(404);
-    $errorMessage = $mensaje;
-    include __DIR__ . '/../vistas/error404.php';
-    exit();
-} 
+}  

@@ -1,13 +1,18 @@
 <?php
+// vistas/error404.php
+// Vista para errores 404. Se muestra cuando no existe la página solicitada.
 
-require_once '/../includes/funciones.php';
+if (!isset($errorMessage)) {
+    $errorMessage = 'No hemos podido encontrar la página que buscas. Comprueba la URL o vuelve al inicio.';
+}
+http_response_code(404);
 ?>
 
 <section class="section">
   <div class="section-head">
     <div>
       <h1>404 — Página no encontrada</h1>
-      <p>No hemos podido encontrar la página que buscas. Comprueba la URL o vuelve al inicio.</p>
+      <p><?php echo htmlspecialchars($errorMessage); ?></p>
     </div>
   </div>
 
