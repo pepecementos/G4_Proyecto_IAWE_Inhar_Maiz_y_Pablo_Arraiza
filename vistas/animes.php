@@ -1,5 +1,7 @@
+
 <?php
 // vistas/animes.php
+require_once 'includes/funciones.php';
 
 $q = trim($_GET["q"] ?? "");
 
@@ -25,8 +27,8 @@ if ($q !== "") {
       <h1>Animes</h1>
       <p>Catálogo de ejemplo. Usa el buscador de arriba (campo “Buscar (demo)…”).</p>
       <div class="quick">
-        <a class="btn" href="index.php?page=inicio">Volver</a>
-        <a class="btn primary" href="index.php?page=areaPersonal">Guardar favoritos (demo)</a>
+        <a class="btn" href="index.php?page=inicio<?php echo $usuario?>">Volver</a>
+        <a class="btn primary" href="index.php?page=areaPersonal<?php echo $usuario?>">Guardar favoritos (demo)</a>
       </div>
     </div>
     <div class="badges">
@@ -53,7 +55,7 @@ if ($q !== "") {
     <?php endif; ?>
 
     <?php foreach($animes as $a): ?>
-      <a class="card" href="index.php?page=animes">
+      <a class="card" href="index.php?page=animes<?php echo $usuario?>">
         <div class="thumb">
           <span class="chip"><?= htmlspecialchars($a["estado"]) ?> · <?= htmlspecialchars((string)$a["anio"]) ?></span>
         </div>

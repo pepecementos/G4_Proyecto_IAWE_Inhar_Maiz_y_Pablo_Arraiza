@@ -1,5 +1,6 @@
 <?php
 // vistas/areaPersonal.php
+require_once __DIR__ . '/../includes/funciones.php';
 
 // Demo: simulación de "usuario"
 $usuario = [
@@ -20,7 +21,7 @@ $usuario = [
       </p>
       <div class="quick">
         <button class="btn primary" type="button" onclick="alert('Demo: aquí iría el login/registro')">Iniciar sesión</button>
-        <a class="btn" href="index.php?page=inicio">Inicio</a>
+        <a class="btn" href="index.php?page=inicio<?php echo $usuario?>">Inicio</a>
       </div>
     </div>
     <div class="badges">

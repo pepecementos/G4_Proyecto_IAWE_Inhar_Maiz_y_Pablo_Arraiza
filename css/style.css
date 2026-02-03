@@ -1,15 +1,16 @@
 :root{
-  --bg:#0b0f17;
-  --panel:#0f1624;
-  --panel-2:#121c2e;
-  --card:#0f1a2c;
-  --text:#e7eefc;
-  --muted:#a8b3c7;
-  --brand:#7c5cff;
-  --brand-2:#2ee59d;
-  --danger:#ff4d6d;
-  --border: rgba(255,255,255,.08);
-  --shadow: 0 18px 45px rgba(0,0,0,.35);
+  /* ✅ Paleta CLARA (solo colores) */
+  --bg:#f5f7fb;
+  --panel:#ffffff;
+  --panel-2:#f0f3fa;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --brand:#6d28d9;
+  --brand-2:#06b6d4;
+  --danger:#ef4444;
+  --border: rgba(17,24,39,.12);
+  --shadow: 0 18px 45px rgba(17,24,39,.12);
   --radius: 18px;
 }
 
@@ -19,8 +20,8 @@ body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
   background:
-    radial-gradient(900px 500px at 12% -10%, rgba(124,92,255,.25), transparent 60%),
-    radial-gradient(900px 500px at 85% 0%, rgba(46,229,157,.18), transparent 55%),
+    radial-gradient(900px 500px at 12% -10%, rgba(109,40,217,.14), transparent 60%),
+    radial-gradient(900px 500px at 85% 0%, rgba(6,182,212,.12), transparent 55%),
     var(--bg);
   color: var(--text);
 }
@@ -38,7 +39,7 @@ img{max-width:100%; display:block}
 .header{
   position:sticky; top:0; z-index:50;
   backdrop-filter: blur(10px);
-  background: rgba(11,15,23,.72);
+  background: rgba(255,255,255,.78);
   border-bottom: 1px solid var(--border);
 }
 .header-inner{
@@ -54,9 +55,9 @@ img{max-width:100%; display:block}
 .logo{
   width:38px; height:38px; border-radius:14px;
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%),
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 55%),
     linear-gradient(135deg, var(--brand), var(--brand-2));
-  box-shadow: 0 10px 26px rgba(124,92,255,.20);
+  box-shadow: 0 10px 26px rgba(109,40,217,.18);
 }
 .brand small{
   display:block;
@@ -78,12 +79,12 @@ img{max-width:100%; display:block}
 .nav a:hover{
   color: var(--text);
   border-color: var(--border);
-  background: rgba(255,255,255,.03);
+  background: rgba(17,24,39,.03);
 }
 .nav a.active{
   color: var(--text);
-  background: rgba(124,92,255,.12);
-  border-color: rgba(124,92,255,.28);
+  background: rgba(109,40,217,.10);
+  border-color: rgba(109,40,217,.22);
 }
 
 .actions{
@@ -97,13 +98,13 @@ img{max-width:100%; display:block}
 .search input{
   width:100%;
   padding: 11px 12px 11px 40px;
-  background: rgba(255,255,255,.04);
+  background: rgba(17,24,39,.02);
   border: 1px solid var(--border);
   border-radius: 14px;
   color: var(--text);
   outline:none;
 }
-.search input::placeholder{color: rgba(168,179,199,.75)}
+.search input::placeholder{color: rgba(107,114,128,.9)}
 .search svg{
   position:absolute; left:12px; top:50%; transform:translateY(-50%);
   opacity:.75;
@@ -113,16 +114,16 @@ img{max-width:100%; display:block}
   padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.03);
+  background: rgba(17,24,39,.02);
   color: var(--text);
   cursor:pointer;
 }
-.btn:hover{background: rgba(255,255,255,.06)}
+.btn:hover{background: rgba(17,24,39,.05)}
 .btn.primary{
-  border-color: rgba(124,92,255,.35);
-  background: rgba(124,92,255,.14);
+  border-color: rgba(109,40,217,.28);
+  background: rgba(109,40,217,.12);
 }
-.btn.primary:hover{background: rgba(124,92,255,.20)}
+.btn.primary:hover{background: rgba(109,40,217,.18)}
 
 .main{
   padding: 26px 0 40px;
@@ -132,9 +133,9 @@ img{max-width:100%; display:block}
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background:
-    radial-gradient(700px 300px at 20% 0%, rgba(124,92,255,.22), transparent 55%),
-    radial-gradient(700px 300px at 90% 20%, rgba(46,229,157,.16), transparent 50%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+    radial-gradient(700px 300px at 20% 0%, rgba(109,40,217,.14), transparent 55%),
+    radial-gradient(700px 300px at 90% 20%, rgba(6,182,212,.10), transparent 50%),
+    linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.55));
   box-shadow: var(--shadow);
   overflow:hidden;
 }
@@ -165,7 +166,7 @@ img{max-width:100%; display:block}
 .badge{
   padding:8px 10px;
   border-radius: 999px;
-  background: rgba(255,255,255,.04);
+  background: rgba(255,255,255,.75);
   border: 1px solid var(--border);
   color: var(--muted);
   font-size: 13px;
@@ -198,27 +199,28 @@ img{max-width:100%; display:block}
   grid-column: span 3;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+  background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.72));
   overflow:hidden;
-  box-shadow: 0 14px 30px rgba(0,0,0,.22);
+  box-shadow: 0 14px 30px rgba(17,24,39,.10);
   transition: transform .15s ease, border-color .15s ease, background .15s ease;
 }
 .card:hover{
   transform: translateY(-3px);
-  border-color: rgba(255,255,255,.16);
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border-color: rgba(17,24,39,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.76));
 }
 .thumb{
   aspect-ratio: 16/10;
-  background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(46,229,157,.14));
+  background: linear-gradient(135deg, rgba(109,40,217,.16), rgba(6,182,212,.12));
   display:flex; align-items:end; padding:12px;
 }
 .chip{
   font-size: 12px;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(0,0,0,.35);
-  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.78);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 .card-body{padding: 12px 12px 14px}
 .card-title{
@@ -235,13 +237,13 @@ img{max-width:100%; display:block}
   padding: 5px 8px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(255,255,255,.03);
+  background: rgba(17,24,39,.02);
 }
 
 .panel{
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: rgba(255,255,255,.03);
+  background: rgba(255,255,255,.72);
   padding: 16px;
   box-shadow: var(--shadow);
 }
@@ -260,11 +262,11 @@ img{max-width:100%; display:block}
   font-size: 14px;
 }
 .table th{color: var(--muted); font-weight:700; font-size: 12px; letter-spacing:.4px; text-transform:uppercase}
-.table tr:hover td{background: rgba(255,255,255,.03)}
+.table tr:hover td{background: rgba(17,24,39,.03)}
 
 .footer{
   border-top: 1px solid var(--border);
-  background: rgba(11,15,23,.72);
+  background: rgba(255,255,255,.78);
   padding: 22px 0;
   color: var(--muted);
 }
@@ -279,8 +281,8 @@ img{max-width:100%; display:block}
 .footer a:hover{opacity:1}
 
 .notice{
-  border:1px solid rgba(46,229,157,.28);
-  background: rgba(46,229,157,.08);
+  border:1px solid rgba(6,182,212,.22);
+  background: rgba(6,182,212,.10);
   padding: 12px 14px;
   border-radius: 14px;
   color: var(--text);
@@ -301,3 +303,84 @@ img{max-width:100%; display:block}
   .nav{display:none}
   .card{grid-column: span 12}
 }
+
+/* =========================================================
+   ✅ EXTRA MINIMO para que login.php y registro.php se vean bien
+   (sin cambiar tus otras páginas)
+   ========================================================= */
+
+h1{
+  font-size: clamp(22px, 3vw, 32px);
+  letter-spacing: .2px;
+}
+
+/* formularios “sueltos” (login/registro) */
+form{
+  width: min(460px, 92%);
+  margin: 18px auto 0;
+  padding: 18px;
+  background: rgba(255,255,255,.78);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+label{
+  display:block;
+  margin: 10px 0 6px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"]{
+  width:100%;
+  padding: 11px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(17,24,39,.02);
+  color: var(--text);
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus{
+  border-color: rgba(109,40,217,.35);
+  box-shadow: 0 0 0 4px rgba(109,40,217,.10);
+}
+
+input[type="submit"],
+button[type="submit"],
+button{
+  width:100%;
+  margin-top: 14px;
+  padding: 11px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(109,40,217,.28);
+  background: rgba(109,40,217,.12);
+  color: var(--text);
+  font-weight: 700;
+  cursor:pointer;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover,
+button:hover{
+  background: rgba(109,40,217,.18);
+}
+
+form p{
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+form a{
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+

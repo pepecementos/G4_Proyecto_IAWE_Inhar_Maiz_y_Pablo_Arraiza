@@ -1,5 +1,6 @@
 <?php
 // vistas/tienda.php
+require_once __DIR__ . '/../includes/funciones.php';
 
 $items = [
   ["producto"=>"Figura (demo)", "categoria"=>"Merch", "precio"=>29.99, "stock"=>12],
@@ -15,7 +16,7 @@ $items = [
       <h1>Tienda</h1>
       <p>Zona de merchandising (demo). Ideal para practicar carrito, sesiones y pagos (más adelante).</p>
       <div class="quick">
-        <a class="btn" href="index.php?page=inicio">Volver</a>
+        <a class="btn" href="index.php?page=inicio<?php echo $usuario?>">Volver</a>
         <button class="btn primary" type="button" onclick="alert('Demo: aquí iría el carrito')">Abrir carrito</button>
       </div>
     </div>

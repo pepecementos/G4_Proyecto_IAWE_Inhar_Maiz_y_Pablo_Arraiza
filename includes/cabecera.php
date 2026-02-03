@@ -5,9 +5,10 @@
 // $paginaActiva (string)  -> inicio|animes|mangas|tienda|areaPersonal
 $tituloPagina = $tituloPagina ?? "AniManga";
 $paginaActiva = $paginaActiva ?? "inicio";
+require_once __DIR__ . '/funciones.php';
 
 function navClass(string $key, string $active): string {
-    return $key === $active ? "active" : "";
+  return $key === $active ? "active" : "";
 }
 ?>
 <!doctype html>
@@ -16,7 +17,7 @@ function navClass(string $key, string $active): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title><?= htmlspecialchars($tituloPagina) ?></title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/G4_Proyecto_IAWE_Inhar_Maiz_y_Pablo_Arraiza/css/style.css">
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -32,12 +33,20 @@ function navClass(string $key, string $active): string {
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
-      <a class="<?= navClass("inicio", $paginaActiva) ?>" href="index.php?page=inicio">Inicio</a>
-      <a class="<?= navClass("animes", $paginaActiva) ?>" href="index.php?page=animes">Animes</a>
-      <a class="<?= navClass("mangas", $paginaActiva) ?>" href="index.php?page=mangas">Mangas</a>
-      <a class="<?= navClass("tienda", $paginaActiva) ?>" href="index.php?page=tienda">Tienda</a>
-      <a class="<?= navClass("areaPersonal", $paginaActiva) ?>" href="index.php?page=areaPersonal">Área personal</a>
+        <?php 
+            $usuario = usuario_autenticado() ? "&usuario=" . urlencode($_GET["usuario"]) : "";
+        ?>
+      <a class="<?= navClass("inicio", $paginaActiva) ?>" href="index.php?page=inicio<?php echo $usuario; ?>">Inicio</a>
+      <a class="<?= navClass("animes", $paginaActiva) ?>" href="index.php?page=animes<?php echo $usuario; ?>">Animes</a>
+      <a class="<?= navClass("mangas", $paginaActiva) ?>" href="index.php?page=mangas<?php echo $usuario; ?>">Mangas</a>
+      <a class="<?= navClass("tienda", $paginaActiva) ?>" href="index.php?page=tienda<?php echo $usuario; ?>">Tienda</a>
+      <a class="<?= navClass("areaPersonal", $paginaActiva) ?>" href="index.php?page=areaPersonal<?php echo $usuario; ?>">Área personal</a>
+          <?php if (isset($_GET["usuario"])): ?>
+                <span style="margin-left: 20px;">Hola, <?php echo htmlspecialchars($_GET["usuario"]); ?></span>
+                <a href="index.php" style="color: red; margin-left: 10px;">Cerrar sesión</a>
+              <?php endif; ?>
     </nav>
+
 
     <div class="actions">
       <form class="search" action="index.php" method="get" role="search">

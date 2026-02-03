@@ -1,5 +1,7 @@
+
 <?php
 // vistas/inicio.php
+require_once __DIR__ . '/../includes/funciones.php';
 
 $trending = [
   ["titulo"=>"Jujutsu Kaisen", "tipo"=>"Anime", "estado"=>"En emisión", "tag1"=>"Acción", "tag2"=>"Shonen"],
@@ -14,6 +16,9 @@ $ultimosMangas = [
   ["titulo"=>"Oshi no Ko", "tipo"=>"Manga", "estado"=>"Cap. 141", "tag1"=>"Drama", "tag2"=>"Industria"],
   ["titulo"=>"Kaiju No. 8", "tipo"=>"Manga", "estado"=>"Cap. 118", "tag1"=>"Monstruos", "tag2"=>"Acción"],
 ];
+if (isset($_GET['msg'])) {
+    mostrar_mensaje('exito', htmlspecialchars($_GET['msg']));
+}
 ?>
 
 <section class="hero">
@@ -25,9 +30,9 @@ $ultimosMangas = [
         (Por ahora es demo estática, perfecta para ir conectando a BD y APIs).
       </p>
       <div class="quick">
-        <a class="btn primary" href="index.php?page=animes">Ver animes</a>
-        <a class="btn" href="index.php?page=mangas">Leer mangas</a>
-        <a class="btn" href="index.php?page=tienda">Tienda</a>
+        <a class="btn primary" href="index.php?page=animes<?php echo $usuario?>">Ver animes</a>
+        <a class="btn" href="index.php?page=mangas<?php echo $usuario?>">Leer mangas</a>
+        <a class="btn" href="index.php?page=tienda<?php echo $usuario?>">Tienda</a>
       </div>
     </div>
 
@@ -46,12 +51,12 @@ $ultimosMangas = [
       <h2>Tendencias</h2>
       <p>Lo más visto ahora (ejemplo)</p>
     </div>
-    <p><a class="btn" href="index.php?page=animes">Explorar</a></p>
+    <p><a class="btn" href="index.php?page=animes<?php echo $usuario?>">Explorar</a></p>
   </div>
 
   <div class="grid">
     <?php foreach($trending as $item): ?>
-      <a class="card" href="index.php?page=animes">
+      <a class="card" href="index.php?page=animes<?php echo $usuario?>">
         <div class="thumb">
           <span class="chip"><?= htmlspecialchars($item["estado"]) ?></span>
         </div>
@@ -74,12 +79,12 @@ $ultimosMangas = [
       <h2>Últimos mangas</h2>
       <p>Actualizaciones recientes (ejemplo)</p>
     </div>
-    <p><a class="btn" href="index.php?page=mangas">Ver lista</a></p>
+    <p><a class="btn" href="index.php?page=mangas<?php echo $usuario?>">Ver lista</a></p>
   </div>
 
   <div class="grid">
     <?php foreach($ultimosMangas as $item): ?>
-      <a class="card" href="index.php?page=mangas">
+      <a class="card" href="index.php?page=mangas<?php echo $usuario?>">
         <div class="thumb">
           <span class="chip"><?= htmlspecialchars($item["estado"]) ?></span>
         </div>

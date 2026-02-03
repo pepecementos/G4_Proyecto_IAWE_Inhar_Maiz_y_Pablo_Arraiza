@@ -1,5 +1,6 @@
 <?php
 // vistas/mangas.php
+require_once __DIR__ . '/../includes/funciones.php';
 
 $q = trim($_GET["q"] ?? "");
 
@@ -25,8 +26,8 @@ if ($q !== "") {
       <h1>Mangas</h1>
       <p>Lectura tipo catálogo. Luego puedes añadir páginas de detalle y lector por capítulos.</p>
       <div class="quick">
-        <a class="btn" href="index.php?page=inicio">Volver</a>
-        <a class="btn primary" href="index.php?page=areaPersonal">Seguir series (demo)</a>
+        <a class="btn" href="index.php?page=inicio<?php echo $usuario?>">Volver</a>
+        <a class="btn primary" href="index.php?page=areaPersonal<?php echo $usuario?>">Seguir series (demo)</a>
       </div>
     </div>
     <div class="badges">
@@ -53,7 +54,7 @@ if ($q !== "") {
     <?php endif; ?>
 
     <?php foreach($mangas as $m): ?>
-      <a class="card" href="index.php?page=mangas">
+      <a class="card" href="index.php?page=mangas<?php echo $usuario?>">
         <div class="thumb">
           <span class="chip"><?= htmlspecialchars($m["capitulo"]) ?></span>
         </div>
