@@ -1,7 +1,7 @@
 
 <?php
 // vistas/animes.php
-require_once 'includes/funciones.php';
+require_once __DIR__ . '/../includes/funciones.php';
 
 $q = trim($_GET["q"] ?? "");
 
@@ -13,6 +13,25 @@ $animes = [
   ["titulo"=>"My Hero Academia", "anio"=>2016, "genero"=>"Shonen", "estado"=>"En emisión", "rating"=>"8.2"],
   ["titulo"=>"Steins;Gate", "anio"=>2011, "genero"=>"Sci-Fi", "estado"=>"Finalizado", "rating"=>"9.0"],
 ];
+
+// Añadir los trending que sean tipo "Anime" (sin duplicados)
+$trending = obtener_trending();
+$existing = array_map(function($a){ return mb_strtolower($a['titulo']); }, $animes);
+foreach ($trending as $t) {
+  if ((($t['tipo'] ?? '') === 'Anime')) {
+    $titleLower = mb_strtolower($t['titulo']);
+    if (!in_array($titleLower, $existing)) {
+      $animes[] = [
+        'titulo' => $t['titulo'],
+        'anio' => '',
+        'genero' => $t['tag1'] ?? '',
+        'estado' => $t['estado'] ?? '',
+        'rating' => '-',
+      ];
+      $existing[] = $titleLower;
+    }
+  }
+}
 
 if ($q !== "") {
   $animes = array_values(array_filter($animes, function($a) use ($q) {
@@ -55,7 +74,7 @@ if ($q !== "") {
     <?php endif; ?>
 
     <?php foreach($animes as $a): ?>
-      <a class="card" href="index.php?page=animes<?php echo $usuario?>">
+      <a class="card" href="index.php?page=anime&anime=<?= urlencode($a['titulo']) ?><?php echo $usuario?>">
         <div class="thumb">
           <span class="chip"><?= htmlspecialchars($a["estado"]) ?> · <?= htmlspecialchars((string)$a["anio"]) ?></span>
         </div>

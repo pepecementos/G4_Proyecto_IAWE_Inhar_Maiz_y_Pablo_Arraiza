@@ -13,6 +13,42 @@ $mangas = [
   ["titulo"=>"Tokyo Revengers", "tipo"=>"Acción", "capitulo"=>"Completo", "estado"=>"Finalizado"],
 ];
 
+// Añadir los últimos mangas centralizados (sin duplicados)
+$ultimos = obtener_ultimos_mangas();
+$existingM = array_map(function($m){ return mb_strtolower($m['titulo']); }, $mangas);
+foreach ($ultimos as $u) {
+  if (($u['tipo'] ?? '') === 'Manga') {
+    $titleLower = mb_strtolower($u['titulo']);
+    if (!in_array($titleLower, $existingM)) {
+      $mangas[] = [
+        'titulo' => $u['titulo'],
+        'tipo' => $u['tag1'] ?? '',
+        'capitulo' => $u['estado'] ?? '',
+        'estado' => $u['estado'] ?? '',
+      ];
+      $existingM[] = $titleLower;
+    }
+  }
+}
+
+// Añadir los últimos mangas centralizados (sin duplicados)
+$ultimos = obtener_ultimos_mangas();
+$existingM = array_map(function($m){ return mb_strtolower($m['titulo']); }, $mangas);
+foreach ($ultimos as $u) {
+  if (($u['tipo'] ?? '') === 'Manga') {
+    $titleLower = mb_strtolower($u['titulo']);
+    if (!in_array($titleLower, $existingM)) {
+      $mangas[] = [
+        'titulo' => $u['titulo'],
+        'tipo' => $u['tag1'] ?? '',
+        'capitulo' => $u['estado'] ?? '',
+        'estado' => $u['estado'] ?? '',
+      ];
+      $existingM[] = $titleLower;
+    }
+  }
+}
+
 if ($q !== "") {
   $mangas = array_values(array_filter($mangas, function($m) use ($q) {
     return mb_stripos($m["titulo"], $q) !== false;
@@ -54,7 +90,7 @@ if ($q !== "") {
     <?php endif; ?>
 
     <?php foreach($mangas as $m): ?>
-      <a class="card" href="index.php?page=mangas<?php echo $usuario?>">
+      <a class="card" href="index.php?page=manga&manga=<?= urlencode($m['titulo']) ?><?php echo $usuario?>">
         <div class="thumb">
           <span class="chip"><?= htmlspecialchars($m["capitulo"]) ?></span>
         </div>

@@ -25,25 +25,25 @@ function navClass(string $key, string $active): string {
 <header class="header">
   <div class="container header-inner">
     <a class="brand" href="index.php?page=inicio" aria-label="Inicio">
-      <span class="logo" aria-hidden="true"></span>
-      <div>
-        AniManga
-        <small>Anime + Manga en un solo lugar</small>
+      <img class="brand-logo" src="imagenes/logoAnimeXAI.JPG" alt="Logo AnimeXAI" width="38" height="38">
+      <div class="brand-text">
+        <span class="brand-title">AnimeXAI</span>
+        <small>Tu portal de Anime y Manga</small>
       </div>
     </a>
 
     <nav class="nav" aria-label="Navegación principal">
         <?php 
-            $usuario = usuario_autenticado() ? "&usuario=" . urlencode($_GET["usuario"]) : "";
+            // En lugar de depender de GET, usamos la sesión para el usuario autenticado
+            $usuario = usuario_autenticado() ? "&usuario=" . urlencode($_SESSION['usuario']) : "";
         ?>
       <a class="<?= navClass("inicio", $paginaActiva) ?>" href="index.php?page=inicio<?php echo $usuario; ?>">Inicio</a>
       <a class="<?= navClass("animes", $paginaActiva) ?>" href="index.php?page=animes<?php echo $usuario; ?>">Animes</a>
       <a class="<?= navClass("mangas", $paginaActiva) ?>" href="index.php?page=mangas<?php echo $usuario; ?>">Mangas</a>
       <a class="<?= navClass("tienda", $paginaActiva) ?>" href="index.php?page=tienda<?php echo $usuario; ?>">Tienda</a>
       <a class="<?= navClass("areaPersonal", $paginaActiva) ?>" href="index.php?page=areaPersonal<?php echo $usuario; ?>">Área personal</a>
-          <?php if (isset($_GET["usuario"])): ?>
-                <span style="margin-left: 20px;">Hola, <?php echo htmlspecialchars($_GET["usuario"]); ?></span>
-                <a href="index.php" style="color: red; margin-left: 10px;">Cerrar sesión</a>
+          <?php if (usuario_autenticado()): ?>
+                <a class="logout" href="index.php?logout=1">Cerrar sesión</a>
               <?php endif; ?>
     </nav>
 
@@ -63,6 +63,12 @@ function navClass(string $key, string $active): string {
     </div>
   </div>
 </header>
+
+<?php if (function_exists('mostrar_flash')): ?>
+  <div class="container">
+    <?php mostrar_flash(); ?>
+  </div>
+<?php endif; ?>
 
 <main id="contenido" class="main">
   <div class="container">

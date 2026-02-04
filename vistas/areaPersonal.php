@@ -2,13 +2,24 @@
 // vistas/areaPersonal.php
 require_once __DIR__ . '/../includes/funciones.php';
 
-// Demo: simulación de "usuario"
-$usuario = [
-  "nick" => "Invitado",
-  "plan" => "Gratis",
-  "favoritos" => ["Frieren", "Steins;Gate", "Berserk"],
-  "siguiendo" => ["One Piece", "Chainsaw Man"]
-];
+// Mostrar los datos del usuario real (si está autenticado)
+if (usuario_autenticado()) {
+    $u = obtener_usuario_por_nombre($_SESSION['usuario']);
+    $usuario = [
+      'nick' => $u['nombre_usuario'] ?? $_SESSION['usuario'],
+      'plan' => 'Gratis',
+      'favoritos' => ['Frieren', 'Steins;Gate', 'Berserk'],
+      'siguiendo' => ['One Piece', 'Chainsaw Man']
+    ];
+} else {
+    // Fallback demo (no debería llegarse aquí si la app verifica logueo)
+    $usuario = [
+      'nick' => 'Invitado',
+      'plan' => 'Gratis',
+      'favoritos' => ['Frieren', 'Steins;Gate', 'Berserk'],
+      'siguiendo' => ['One Piece', 'Chainsaw Man']
+    ];
+}
 ?>
 
 <section class="hero">
