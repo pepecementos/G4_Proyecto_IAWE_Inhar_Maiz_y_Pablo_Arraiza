@@ -11,20 +11,46 @@ if ($titulo === '') {
 
 $capitulos = obtener_capitulos_por_anime($titulo);
 
+// Comprobar si el usuario sigue este anime
+$u = usuario_autenticado() ? obtener_usuario_por_nombre($_SESSION['usuario']) : null;
+$isFollowing = false;
+if ($u) $isFollowing = usuario_siguiendo((int)$u['id_usuario'], 'anime', $titulo);
+
 ?>
 
+<?php
+  $base = 'imagenes/animes/' . preg_replace('/[^a-zA-Z0-9]/', '_', strtolower($titulo));
+  $exts = ['jpg', 'jpeg', 'png', 'webp'];
+  $imgPath = 'imagenes/logoAnimeXAI.JPG';
+  foreach ($exts as $ext) {
+    if (file_exists($base . '.' . $ext)) {
+      $imgPath = $base . '.' . $ext;
+      break;
+    }
+  }
+?>
 <section class="hero">
-  <div class="hero-inner">
-    <div>
+  <div class="hero-inner" style="display:flex;align-items:center;gap:32px;">
+    <div style="flex-shrink:0;">
+      <img src="<?= $imgPath ?>" alt="Portada de <?= htmlspecialchars($titulo) ?>" style="width:120px;height:170px;object-fit:cover;border-radius:12px;box-shadow:0 2px 12px #0001;">
+    </div>
+    <div style="flex:1;">
       <h1><?= htmlspecialchars($titulo) ?></h1>
-      <p>Listado de capítulos (demo). Puedes enlazar cada capítulo a un reproductor o página individual.</p>
       <div class="quick">
         <a class="btn" href="index.php?page=animes<?php echo $usuario?>">Volver</a>
-        <a class="btn primary" href="index.php?page=areaPersonal<?php echo $usuario?>">Guardar (demo)</a>
+        <form method="post" style="display:inline">
+          <input type="hidden" name="tipo" value="anime">
+          <input type="hidden" name="titulo" value="<?= htmlspecialchars($titulo) ?>">
+          <?php if ($isFollowing): ?>
+            <button class="btn" type="submit" name="dejar_seguir">Dejar de seguir</button>
+          <?php else: ?>
+            <button class="btn primary" type="submit" name="seguir">Seguir</button>
+          <?php endif; ?>
+        </form>
       </div>
-    </div>
-    <div class="badges">
-      <div class="badge"><strong><?= count($capitulos) ?></strong> capítulos</div>
+      <div class="badges">
+        <div class="badge"><strong><?= count($capitulos) ?></strong> capítulos</div>
+      </div>
     </div>
   </div>
 </section>
@@ -33,7 +59,7 @@ $capitulos = obtener_capitulos_por_anime($titulo);
   <div class="section-head">
     <div>
       <h2>Capítulos</h2>
-      <p>Selecciona un capítulo para ver más detalles (demo).</p>
+      <p>Selecciona un capítulo para ver más detalles.</p>
     </div>
   </div>
 

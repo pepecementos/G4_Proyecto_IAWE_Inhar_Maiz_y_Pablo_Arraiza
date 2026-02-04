@@ -15,10 +15,6 @@ if (isset($_GET['msg'])) {
   <div class="hero-inner">
     <div>
       <h1>Tu portal de anime y manga</h1>
-      <p>
-        Interfaz estilo streaming: descubre series, guarda favoritos y sigue capítulos.
-        (Por ahora es demo estática, perfecta para ir conectando a BD y APIs).
-      </p>
       <div class="quick">
         <a class="btn primary" href="index.php?page=animes<?php echo $usuario?>">Ver animes</a>
         <a class="btn" href="index.php?page=mangas<?php echo $usuario?>">Leer mangas</a>
@@ -39,7 +35,7 @@ if (isset($_GET['msg'])) {
   <div class="section-head">
     <div>
       <h2>Tendencias</h2>
-      <p>Lo más visto ahora (ejemplo)</p>
+      <p>Lo más visto ahora</p>
     </div>
     <p><a class="btn" href="index.php?page=animes<?php echo $usuario?>">Explorar</a></p>
   </div>
@@ -58,9 +54,23 @@ if (isset($_GET['msg'])) {
           $link = $maybeManga ? ('index.php?page=manga&manga=' . urlencode($item['titulo']) . $usuario) : ('index.php?page=animes' . $usuario);
         }
       ?>
+      <?php
+        $base = 'imagenes/animes/' . preg_replace('/[^a-zA-Z0-9]/', '_', strtolower($item['titulo']));
+        $exts = ['jpg', 'jpeg', 'png', 'webp'];
+        $imgPath = 'imagenes/logoAnimeXAI.JPG';
+        foreach ($exts as $ext) {
+          if (file_exists($base . '.' . $ext)) {
+            $imgPath = $base . '.' . $ext;
+            break;
+          }
+        }
+      ?>
       <a class="card" href="<?= $link ?>">
-        <div class="thumb">
-          <span class="chip"><?= htmlspecialchars($item["estado"]) ?></span>
+        <div class="thumb" style="position:relative;">
+          <img src="<?= $imgPath ?>" alt="Portada de <?= htmlspecialchars($item['titulo']) ?>" style="width:100%;height:120px;object-fit:cover;border-radius:8px 8px 0 0;">
+          <span class="chip" style="position:absolute;top:8px;left:8px;">
+            <?= htmlspecialchars($item["estado"]) ?>
+          </span>
         </div>
         <div class="card-body">
           <h3 class="card-title"><?= htmlspecialchars($item["titulo"]) ?></h3>
@@ -79,17 +89,31 @@ if (isset($_GET['msg'])) {
   <div class="section-head">
     <div>
       <h2>Últimos mangas</h2>
-      <p>Actualizaciones recientes (ejemplo)</p>
+      <p>Actualizaciones recientes</p>
     </div>
     <p><a class="btn" href="index.php?page=mangas<?php echo $usuario?>">Ver lista</a></p>
   </div>
 
   <div class="grid">
     <?php foreach($ultimosMangas as $item): ?>
-      <?php $linkM = 'index.php?page=manga&manga=' . urlencode($item['titulo']) . $usuario; ?>
+      <?php 
+        $linkM = 'index.php?page=manga&manga=' . urlencode($item['titulo']) . $usuario;
+        $base = 'imagenes/mangas/' . preg_replace('/[^a-zA-Z0-9]/', '_', strtolower($item['titulo']));
+        $exts = ['jpg', 'jpeg', 'png', 'webp'];
+        $imgPath = 'imagenes/logoAnimeXAI.JPG';
+        foreach ($exts as $ext) {
+          if (file_exists($base . '.' . $ext)) {
+            $imgPath = $base . '.' . $ext;
+            break;
+          }
+        }
+      ?>
       <a class="card" href="<?= $linkM ?>">
-        <div class="thumb">
-          <span class="chip"><?= htmlspecialchars($item["estado"]) ?></span>
+        <div class="thumb" style="position:relative;">
+          <img src="<?= $imgPath ?>" alt="Portada de <?= htmlspecialchars($item['titulo']) ?>" style="width:100%;height:120px;object-fit:cover;border-radius:8px 8px 0 0;">
+          <span class="chip" style="position:absolute;top:8px;left:8px;">
+            <?= htmlspecialchars($item["estado"]) ?>
+          </span>
         </div>
         <div class="card-body">
           <h3 class="card-title"><?= htmlspecialchars($item["titulo"]) ?></h3>
@@ -101,15 +125,5 @@ if (isset($_GET['msg'])) {
         </div>
       </a>
     <?php endforeach; ?>
-  </div>
-</section>
-
-<section class="section">
-  <div class="notice">
-    <strong>Siguiente paso recomendado</strong>
-    <small>
-      Conectar estas listas a una BD (MySQL) y renderizar con consultas. Si quieres, te preparo el esquema SQL +
-      una capa de acceso con PDO (seguro) y páginas de detalle (anime.php?id=...).
-    </small>
   </div>
 </section>

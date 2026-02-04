@@ -8,10 +8,8 @@ $anio = date("Y");
 <footer class="footer">
   <div class="container footer-inner">
     <div>
-      <strong>AniManga</strong> · <span>© <?= $anio ?></span>
-      <div style="font-size:12px;margin-top:4px;">
-        Demo educativa. Añade BD/API y autenticación cuando lo necesites.
-      </div>
+      <strong>AnimeXAI</strong> · <span>© <?= $anio ?></span>
+      <!-- Texto de ayuda eliminado -->
     </div>
 
     <div style="display:flex;gap:12px;flex-wrap:wrap;">

@@ -55,6 +55,33 @@ function redirigir($url) {
     header("Location: $url");
     exit();
 }
+// --- Carrito de compras en sesión ---
+function carrito_agregar($producto, $precio, $cantidad = 1) {
+    if (!isset($_SESSION['carrito'])) $_SESSION['carrito'] = [];
+    if (isset($_SESSION['carrito'][$producto])) {
+        $_SESSION['carrito'][$producto]['cantidad'] += $cantidad;
+    } else {
+        $_SESSION['carrito'][$producto] = [
+            'producto' => $producto,
+            'precio' => $precio,
+            'cantidad' => $cantidad
+        ];
+    }
+}
+
+function carrito_quitar($producto) {
+    if (isset($_SESSION['carrito'][$producto])) {
+        unset($_SESSION['carrito'][$producto]);
+    }
+}
+
+function carrito_listar() {
+    return $_SESSION['carrito'] ?? [];
+}
+
+function carrito_vaciar() {
+    unset($_SESSION['carrito']);
+}
 
 // 3. Comprobar autenticación (ahora por sesión)
 function usuario_autenticado(): bool {
@@ -132,13 +159,31 @@ function validar_credenciales(string $username, string $password): bool {
 
 function obtener_usuario_por_nombre(string $username): ?array {
     $pdo = get_db();
-    $stmt = $pdo->prepare('SELECT id_usuario, nombre_usuario, email FROM usuarios WHERE nombre_usuario = ?');
-    $stmt->execute([$username]);
-    $row = $stmt->fetch();
-    return $row ?: null;
+    try {
+        // Intentamos obtener email si existe
+        $stmt = $pdo->prepare('SELECT id_usuario, nombre_usuario, email FROM usuarios WHERE nombre_usuario = ?');
+        $stmt->execute([$username]);
+        $row = $stmt->fetch();
+        if ($row) return $row;
+    } catch (PDOException $e) {
+        // Si la columna 'email' no existe en la tabla, hacemos un fallback sin email
+        if (strpos($e->getMessage(), 'Unknown column') !== false || $e->getCode() === '42S22') {
+            $stmt = $pdo->prepare('SELECT id_usuario, nombre_usuario FROM usuarios WHERE nombre_usuario = ?');
+            $stmt->execute([$username]);
+            $row = $stmt->fetch();
+            if ($row) {
+                $row['email'] = null;
+                return $row;
+            }
+            return null;
+        }
+        // Re-lanzar otras excepciones inesperadas
+        throw $e;
+    }
+    return null;
 }
 
-// Datos de ejemplo: tendencias y últimos mangas (centralizados para reutilizar)
+// Datos: tendencias y últimos mangas (centralizados para reutilizar)
 function obtener_trending(): array {
     return [
       ['titulo'=>'Jujutsu Kaisen', 'tipo'=>'Anime', 'estado'=>'En emisión', 'tag1'=>'Acción', 'tag2'=>'Shonen'],
@@ -203,4 +248,75 @@ function obtener_capitulos_por_anime(string $titulo): array {
 function obtener_capitulos_por_manga(string $titulo): array {
     // Fallback determinista para mangas
     return generar_capitulos_deterministas($titulo, 6, 120, 'capitulo');
+}
+
+// --- Seguimientos (usuarios siguen animes/mangas) ---------------------------------
+function ensure_seguimientos_table(): void {
+    $pdo = get_db();
+    $sql = "CREATE TABLE IF NOT EXISTS seguimientos (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      id_usuario INT NOT NULL,
+      tipo ENUM('anime','manga') NOT NULL,
+      titulo VARCHAR(255) NOT NULL,
+      creado_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE KEY ux_usuario_tipo_titulo (id_usuario, tipo, titulo),
+      FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    try {
+        $pdo->exec($sql);
+    } catch (PDOException $e) {
+        // No bloqueamos la ejecución por fallo en la creación automática
+    }
+}
+
+function seguir_item(int $id_usuario, string $tipo, string $titulo): bool {
+    $tipo = mb_strtolower(trim($tipo)) === 'manga' ? 'manga' : 'anime';
+    ensure_seguimientos_table();
+    $pdo = get_db();
+    try {
+        $stmt = $pdo->prepare('INSERT IGNORE INTO seguimientos (id_usuario, tipo, titulo) VALUES (?, ?, ?)');
+        $stmt->execute([$id_usuario, $tipo, $titulo]);
+        return $stmt->rowCount() > 0;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function dejar_de_seguir(int $id_usuario, string $tipo, string $titulo): bool {
+    ensure_seguimientos_table();
+    $pdo = get_db();
+    $stmt = $pdo->prepare('DELETE FROM seguimientos WHERE id_usuario = ? AND tipo = ? AND titulo = ?');
+    $stmt->execute([$id_usuario, $tipo, $titulo]);
+    return $stmt->rowCount() > 0;
+}
+
+function usuario_siguiendo(int $id_usuario, string $tipo, string $titulo): bool {
+    ensure_seguimientos_table();
+    $pdo = get_db();
+    $stmt = $pdo->prepare('SELECT 1 FROM seguimientos WHERE id_usuario = ? AND tipo = ? AND titulo = ? LIMIT 1');
+    $stmt->execute([$id_usuario, $tipo, $titulo]);
+    return (bool)$stmt->fetchColumn();
+}
+
+function obtener_seguimientos_por_usuario(int $id_usuario): array {
+    ensure_seguimientos_table();
+    $pdo = get_db();
+    $stmt = $pdo->prepare('SELECT tipo, titulo, creado_at FROM seguimientos WHERE id_usuario = ? ORDER BY creado_at DESC');
+    $stmt->execute([$id_usuario]);
+    return $stmt->fetchAll();
+}
+
+// Helper: obtener metadata de un título buscando en listas disponibles (trending/ultimos)
+function obtener_info_titulo(string $titulo): array {
+    $t = mb_strtolower(trim($titulo));
+    // Buscar en trending
+    foreach (obtener_trending() as $it) {
+        if (mb_strtolower($it['titulo']) === $t) return $it + ['titulo' => $titulo];
+    }
+    // Buscar en últimos mangas
+    foreach (obtener_ultimos_mangas() as $it) {
+        if (mb_strtolower($it['titulo']) === $t) return $it + ['titulo' => $titulo];
+    }
+    // Fallback: estructura mínima
+    return ['titulo' => $titulo, 'tipo' => '', 'estado' => '', 'tag1' => '', 'tag2' => ''];
 }
